@@ -7,6 +7,7 @@ module.exports = {
         const email = req.query.email
         console.log(req.query)
 
+        // would be a good idea to put these in the if statments, so that you are not running these unesicarily
         const correctEmails = userData.filter(user => user.email === email)
         const correctAges = userData.filter(user => user.age < age)
         const correctFavs = userData.filter(user => user.favorites.includes(fav))
@@ -69,6 +70,8 @@ module.exports = {
 
         const index = userData.findIndex(element => element.id === id)
 
+        
+        //using the spread operator here would save you a lot of typing
         userData[index].first_name = first_name || userData[index].first_name,
             userData[index].last_name = last_name || userData[index].last_name,
             userData[index].email = email || userData[index].email,
@@ -86,6 +89,8 @@ module.exports = {
     addUser: (req, res) => {
         const newId = userData[userData.length - 1].id + 1
 
+        //here you dustructure the req.body object from an object to a bunch of values then immediatly put them back into an object.
+        // Would be better to use the spread operator or just add the id to the req.body
         const { first_name, last_name, email, gender, language, age, city, state, type, favorites } = req.body
         const newObj = { id: newId, first_name, last_name, email, gender, language, age, city, state, type, favorites }
 
@@ -97,6 +102,7 @@ module.exports = {
     deleteUser: (req, res) => {
         const id = +req.params.id
         console.log(id)
+        // you could just comibine the two lines below into one and set userData = userData.filter
         const newArr = userData.filter(user => user.id !== id)
         userData = newArr
         res.status(200).send(userData)
