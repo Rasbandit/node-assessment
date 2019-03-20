@@ -49,7 +49,7 @@ module.exports = {
     },
 
     updateUser: (req, res) => {
-        //decided to just rewrite the whole thing for simplicity sake
+        // It looks like this broke your update user
 
         let updateUser = userData.findIndex(user => user.id == req.params.id);
         userData.splice(updateUser, 1, req.body);
